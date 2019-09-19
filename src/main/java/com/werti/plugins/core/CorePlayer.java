@@ -1,5 +1,6 @@
 package com.werti.plugins.core;
 
+import jdk.internal.jline.internal.Nullable;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -47,7 +48,7 @@ public class CorePlayer
    * @param player Player to search for.
    * @return CorePlayer that corresponds to the player.
    */
-  // TODO: Nullable annotation
+  @Nullable
   public static CorePlayer GetByPlayer(Player player)
   {
     return corePlayerMap.get(player);
@@ -57,7 +58,7 @@ public class CorePlayer
    * @param name Name of the player.
    * @return CorePlayer that corresponds to the players' name.
    */
-  // TODO: Nullable annotation
+  @Nullable
   public static CorePlayer GetByPlayerName(String name)
   {
     Player player = getServer().getPlayer(name);
