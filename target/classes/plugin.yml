@@ -1,0 +1,6 @@
+name: WertiCore
+version: "0.1"
+description: Core-Plugin of the server
+author: Werti
+main: com.werti.plugins.core.Main
+api-version: "1.14"
