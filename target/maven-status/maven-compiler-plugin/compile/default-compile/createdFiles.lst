@@ -1,4 +1,5 @@
 com\werti\plugins\core\Main.class
 com\werti\plugins\core\CorePlayer.class
 com\werti\plugins\core\eventhandlers\Connection.class
+com\werti\plugins\core\eventhandlers\SignChange.class
 com\werti\plugins\core\commands\Tpall.class

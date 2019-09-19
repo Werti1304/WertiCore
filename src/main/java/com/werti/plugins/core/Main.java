@@ -1,6 +1,8 @@
 package com.werti.plugins.core;
 
 import com.werti.plugins.core.commands.Tpall;
+import com.werti.plugins.core.eventhandlers.Connection;
+import com.werti.plugins.core.eventhandlers.SignChange;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin
@@ -10,7 +12,9 @@ public class Main extends JavaPlugin
   {
     getLogger().info("Core is initializing..");
 
-    //getLogger().info("Eventhandlers were registered!");
+    getServer().getPluginManager().registerEvents(new SignChange(), this);
+    getServer().getPluginManager().registerEvents(new Connection(), this);
+    getLogger().info("Eventhandlers were registered!");
 
     getCommand("tpall").setExecutor(new Tpall());
     getLogger().info("Commands were registered!");
