@@ -4,3 +4,8 @@ description: Core-Plugin of the server
 author: Werti
 main: com.werti.plugins.core.Main
 api-version: "1.14"
+
+commands:
+  tpall:
+    description: Tp all players to you
+    usage: /tpall
