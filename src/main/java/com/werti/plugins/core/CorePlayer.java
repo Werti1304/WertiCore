@@ -2,10 +2,13 @@ package com.werti.plugins.core;
 
 import jdk.internal.jline.internal.Nullable;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
+import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class CorePlayer
@@ -49,10 +52,22 @@ public class CorePlayer
    * @param player Player to search for.
    * @return CorePlayer that corresponds to the player.
    */
-  @Nullable
-  public static CorePlayer GetByPlayer(Player player)
+  @NotNull
+  public static CorePlayer getByPlayer(Player player)
   {
-    return corePlayerMap.get(player);
+    CorePlayer corePlayer = corePlayerMap.get(player);
+
+    return corePlayer;
+  }
+
+  @NotNull
+  public static CorePlayer getByPlayer(CommandSender commandSender)
+  {
+    CorePlayer corePlayer = corePlayerMap.get((Player) commandSender);
+
+    assert corePlayer != null;
+
+    return corePlayer;
   }
 
   /**
@@ -64,12 +79,7 @@ public class CorePlayer
   {
     Player player = getServer().getPlayer(name);
 
-    if (player == null)
-    {
-      return null;
-    }
-
-    return GetByPlayer(player);
+    return getByPlayer(player);
   }
 
   /**
@@ -105,7 +115,7 @@ public class CorePlayer
    *
    * @param corePlayer CorePlayer to be teleported to.
    */
-  public void teleport(CorePlayer corePlayer)
+  public void teleport(@NotNull CorePlayer corePlayer)
   {
     player.teleport(corePlayer.getPlayer());
   }

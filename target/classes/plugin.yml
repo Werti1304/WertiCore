@@ -6,6 +6,11 @@ main: com.werti.plugins.core.Main
 api-version: "1.14"
 
 commands:
+  coreplayer:
+    description: General administrative command for CorePlayers
+    usage: /cp [list]
+    aliases:
+      - cp
   tpall:
     description: Tp all players to you
     usage: /tpall
