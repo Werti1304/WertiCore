@@ -1,4 +1,4 @@
-package com.werti.plugins.core.commands;
+package com.werti.plugins.core.Commands;
 
 import com.werti.plugins.core.CorePlayer;
 import org.bukkit.command.Command;
@@ -35,7 +35,7 @@ public class CP implements CommandExecutor
     return true;
   }
 
-  public void listCommand(CommandSender commandSender)
+  private void listCommand(CommandSender commandSender)
   {
     HashMap<Player, CorePlayer> corePlayerHashMap = CorePlayer.getCorePlayerMap();
 

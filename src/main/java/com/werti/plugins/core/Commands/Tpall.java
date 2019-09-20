@@ -1,4 +1,4 @@
-package com.werti.plugins.core.commands;
+package com.werti.plugins.core.Commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

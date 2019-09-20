@@ -1,4 +1,4 @@
-package com.werti.plugins.core.eventhandlers;
+package com.werti.plugins.core.Eventhandlers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;

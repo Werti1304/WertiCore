@@ -1,4 +1,4 @@
-package com.werti.plugins.core.eventhandlers;
+package com.werti.plugins.core.Eventhandlers;
 
 import com.werti.plugins.core.CorePlayer;
 import org.bukkit.event.EventHandler;

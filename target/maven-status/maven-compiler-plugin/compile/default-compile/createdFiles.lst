@@ -1,6 +1,0 @@
-com\werti\plugins\core\Main.class
-com\werti\plugins\core\CorePlayer.class
-com\werti\plugins\core\commands\Tpall.class
-com\werti\plugins\core\eventhandlers\Connection.class
-com\werti\plugins\core\commands\CP.class
-com\werti\plugins\core\eventhandlers\SignChange.class
