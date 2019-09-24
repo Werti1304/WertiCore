@@ -2,6 +2,7 @@ package com.werti.plugins.core;
 
 import com.werti.plugins.core.Commands.CP;
 import com.werti.plugins.core.Commands.Tpall;
+import com.werti.plugins.core.Config.ConfigMiscellaneous;
 import com.werti.plugins.core.Eventhandlers.Connection;
 import com.werti.plugins.core.Eventhandlers.SignChange;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +16,8 @@ public class Main extends JavaPlugin
   {
     getLogger().info("Core is initializing..");
 
+    initGlobals();
+
     loadConfigs();
 
     registerEventHandlers();
@@ -22,6 +25,15 @@ public class Main extends JavaPlugin
     registerCommands();
 
     getLogger().info("Core was successfully enabled!");
+  }
+
+  private void initGlobals()
+  {
+    Globals.plugin = this;
+
+    Globals.bukkitServer = this.getServer();
+
+    Globals.logger = this.getLogger();
   }
 
   @Override
@@ -33,6 +45,8 @@ public class Main extends JavaPlugin
   private void loadConfigs()
   {
     saveDefaultConfig();
+
+    Globals.miscellaneous = new ConfigMiscellaneous();
 
     getLogger().info("Configs have been loaded!");
   }

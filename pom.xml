@@ -15,6 +15,8 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>config.yml</include>
+                    <include>miscellaneous.yml</include>
                     <!-- Add other any other .yml or text files here -->
                 </includes>
             </resource>

@@ -21,7 +21,6 @@ public class CP implements CommandExecutor
       return false;
     }
 
-
     switch(args[0])
     {
       case "list": //TODO: Add StrRes for command
@@ -30,8 +29,7 @@ public class CP implements CommandExecutor
     }
 
     CorePlayer coreCommandSender = CorePlayer.getByPlayer(commandSender);
-
-
+    
     return true;
   }
 
