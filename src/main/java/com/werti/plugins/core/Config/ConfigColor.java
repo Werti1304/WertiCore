@@ -1,34 +1,28 @@
 package com.werti.plugins.core.Config;
 
-public class ConfigMiscellaneous extends ConfigFixture
+import org.bukkit.Color;
+
+public class ConfigColor extends ConfigFixture
 {
-  private static final String name = "miscellaneous";
+  private static String name = "color";
 
-  private char ColorChar = '&';
+  private Color infoColor = (Color) Values.InfoColor.defaultValue;
 
-  public ConfigMiscellaneous()
+  ConfigColor()
   {
     super(name);
-
-    set(Values.ColorChar.getName(), Values.ColorChar.getDefaultValue());
-
-    save();
   }
 
-  // Load all current values from configuration
+  @Override
   public void load()
   {
-    ColorChar = getChar(Values.ColorChar);
+
   }
 
-  public char getColorChar()
-  {
-    return ColorChar;
-  }
 
   public enum Values implements ConfigValue
   {
-    ColorChar("Color-Char", '&');
+    InfoColor("Info-Color", Color.AQUA);
 
     private String name;
     private Object defaultValue;

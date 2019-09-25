@@ -17,9 +17,13 @@ public abstract class ConfigFixture extends YamlConfiguration
   File customConfigFile;
   FileConfiguration fileConfiguration;
 
+  private String name;
+
   public ConfigFixture(String name)
   {
-    String fileName = name + ".yml";
+    this.name = name;
+
+    String fileName = this.name + ".yml";
 
     customConfigFile = new File(Globals.plugin.getDataFolder(), fileName);
 
@@ -38,13 +42,24 @@ public abstract class ConfigFixture extends YamlConfiguration
       load(customConfigFile);
     } catch (IOException | InvalidConfigurationException e)
     {
-      CoreLogger.ReportException("Custom Config " + name + " couldn't be loaded!", e);
+      CoreLogger.ReportException("Custom Config " + this.name + " couldn't be loaded!", e);
     }
 
     ConfigList.add(this);
   }
 
   public abstract void load();
+
+  void save()
+  {
+    try
+    {
+      save(customConfigFile);
+    } catch (IOException e)
+    {
+      CoreLogger.ReportException("Couldn't save the config " + name + "!", e);
+    }
+  }
 
   /**
    * Loads all config-variables from the config-files
