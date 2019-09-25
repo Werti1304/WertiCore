@@ -1,7 +1,7 @@
 package com.werti.plugins.core.Config;
 
-import com.werti.plugins.core.CoreLogger;
 import com.werti.plugins.core.Globals;
+import com.werti.plugins.core.Logging.CoreLogger;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -40,6 +40,8 @@ public abstract class ConfigFixture extends YamlConfiguration
     {
       CoreLogger.ReportException("Custom Config " + name + " couldn't be loaded!", e);
     }
+
+    ConfigList.add(this);
   }
 
   public abstract void load();
@@ -47,7 +49,7 @@ public abstract class ConfigFixture extends YamlConfiguration
   /**
    * Loads all config-variables from the config-files
    */
-  public void loadAll()
+  public static void loadAll()
   {
     for(ConfigFixture configFixture : ConfigList)
     {

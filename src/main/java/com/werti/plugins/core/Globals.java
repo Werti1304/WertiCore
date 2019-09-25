@@ -3,6 +3,8 @@ package com.werti.plugins.core;
 import com.werti.plugins.core.Config.ConfigMiscellaneous;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Logger;
 
 
@@ -13,7 +15,9 @@ public class Globals
 
   static public Server bukkitServer;
 
-  public static Logger logger;
+  static public Logger logger;
 
-  static public ConfigMiscellaneous miscellaneous;
+  static public ConsoleHandler consoleHandler;
+
+  static public ConfigMiscellaneous conMisc;
 }

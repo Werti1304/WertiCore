@@ -1,5 +1,8 @@
 package com.werti.plugins.core;
 
+import com.werti.plugins.core.Logging.CoreLogger;
+import com.werti.plugins.core.Logging.StringHelper;
+import com.werti.plugins.core.StringResources.StrResCorePlayer;
 import jdk.internal.jline.internal.Nullable;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -8,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
 
 public class CorePlayer
@@ -35,7 +37,16 @@ public class CorePlayer
    */
   public static void add(Player player)
   {
-    new CorePlayer(player);
+    if(!corePlayerMap.containsKey(player))
+    {
+      new CorePlayer(player);
+
+      CoreLogger.DebugLv1("Player " + StringHelper.getPlayerInfo(player) + " was added as CorePlayer.");
+    }
+    else
+    {
+      CoreLogger.Warning(StrResCorePlayer.NotFoundError(player));
+    }
   }
 
   /**
@@ -45,7 +56,24 @@ public class CorePlayer
    */
   public static void remove(Player player)
   {
-    corePlayerMap.remove(player);
+    if(corePlayerMap.containsKey(player))
+    {
+      corePlayerMap.remove(player);
+
+      CoreLogger.DebugLv1("Player " + StringHelper.getPlayerInfo(player) + " was removed as CorePlayer.");
+    }
+    else
+    {
+      CoreLogger.Warning(StrResCorePlayer.NotFoundError(player));
+    }
+  }
+
+  public static void addAllPlayers()
+  {
+    for(Player player : Globals.bukkitServer.getOnlinePlayers())
+    {
+      add(player);
+    }
   }
 
   /**
