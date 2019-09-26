@@ -1,5 +1,6 @@
 package com.werti.plugins.core;
 
+import com.werti.plugins.core.Config.ConfigColor;
 import com.werti.plugins.core.Config.ConfigMiscellaneous;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,4 +21,5 @@ public class Globals
   static public ConsoleHandler consoleHandler;
 
   static public ConfigMiscellaneous conMisc;
+  static public ConfigColor conColor;
 }

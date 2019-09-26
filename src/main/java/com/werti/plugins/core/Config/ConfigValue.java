@@ -27,9 +27,4 @@ public interface ConfigValue
    * @param value Set value (should only used when (re)loading the config)
    */
   void setValue(Object value);
-
-  /**
-   * @return Hardcoded Name of the Config
-   */
-  String getConfigName();
 }

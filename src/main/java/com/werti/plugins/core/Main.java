@@ -2,6 +2,7 @@ package com.werti.plugins.core;
 
 import com.werti.plugins.core.Commands.CP;
 import com.werti.plugins.core.Commands.Tpall;
+import com.werti.plugins.core.Config.ConfigColor;
 import com.werti.plugins.core.Config.ConfigFixture;
 import com.werti.plugins.core.Config.ConfigMiscellaneous;
 import com.werti.plugins.core.Eventhandlers.Connection;
@@ -10,7 +11,7 @@ import com.werti.plugins.core.Logging.CoreLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
-import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
 
 public class Main extends JavaPlugin
 {
@@ -40,10 +41,10 @@ public class Main extends JavaPlugin
 
     Globals.logger = this.getLogger();
 
-    Globals.consoleHandler = new ConsoleHandler();
-    Globals.logger.addHandler(Globals.consoleHandler);
+    //Globals.consoleHandler = new ConsoleHandler();
+    //Globals.logger.addHandler(Globals.consoleHandler);
 
-    //CoreLogger.setLoggerLevel(Level.INFO);
+    CoreLogger.setLoggerLevel(Level.WARNING);
   }
 
   @Override
@@ -58,9 +59,13 @@ public class Main extends JavaPlugin
 
     Globals.conMisc = new ConfigMiscellaneous();
 
+    Globals.conColor = new ConfigColor();
+
     ConfigFixture.loadAll();
 
-    getLogger().info("Configs have been loaded!");
+    CoreLogger.info("Color-Char: " + Globals.conMisc.get(ConfigMiscellaneous.Values.ColorChar));
+
+    CoreLogger.info("Configs have been loaded!");
   }
 
   private void registerCommands()
@@ -81,6 +86,6 @@ public class Main extends JavaPlugin
   {
     CorePlayer.addAllPlayers();
 
-    CoreLogger.Info("All already online players were added as CorePlayers!");
+    CoreLogger.info("All already online players were added as CorePlayers!");
   }
 }

@@ -10,8 +10,8 @@ public class CoreLogger
 {
   public static void setLoggerLevel(Level level)
   {
-    Globals.logger.setLevel(Level.FINEST);
-    Globals.consoleHandler.setLevel(Level.FINEST);
+    Globals.logger.setLevel(level);
+    //Globals.consoleHandler.setLevel(level);
   }
 
   public static void ReportException(@Nullable String msg, Exception e)
@@ -30,7 +30,7 @@ public class CoreLogger
     Globals.logger.warning(msg);
   }
 
-  public static void Info(String msg)
+  public static void info(String msg)
   {
     Globals.logger.info(msg);
   }

@@ -9,6 +9,12 @@ public class ConfigMiscellaneous extends ConfigFixture
     super(name, Values.values());
   }
 
+  @Override
+  public String getConfigName()
+  {
+    return name;
+  }
+
   public enum Values implements ConfigValue
   {
     ColorChar("Color-Char", Character.class, '&');
@@ -54,12 +60,6 @@ public class ConfigMiscellaneous extends ConfigFixture
     public void setValue(Object value)
     {
       this.value = value;
-    }
-
-    @Override
-    public String getConfigName()
-    {
-      return name;
     }
   }
 }

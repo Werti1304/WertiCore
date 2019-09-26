@@ -29,14 +29,23 @@ public abstract class ConfigFixture extends YamlConfiguration
 
     customConfigFile = new File(Globals.plugin.getDataFolder(), fileName);
 
+    configValueList = new ArrayList<>(Arrays.asList(configValues));
+
+    for(ConfigValue configValue : configValueList)
+    {
+      set(configValue.getPath(), configValue.getDefaultValue());
+    }
+
     if(!customConfigFile.exists())
     {
       if(customConfigFile.getParentFile().mkdirs())
       {
-        CoreLogger.Info("Parent directory for Config " + fileName + " was created: " + customConfigFile.getAbsolutePath());
+        CoreLogger.info("Parent directory for Config " + fileName + " was created: " + customConfigFile.getAbsolutePath());
       }
 
       Globals.plugin.saveResource(fileName, false);
+
+      save();
     }
 
     try
@@ -45,13 +54,6 @@ public abstract class ConfigFixture extends YamlConfiguration
     } catch (IOException | InvalidConfigurationException e)
     {
       CoreLogger.ReportException("Custom Config " + this.name + " couldn't be loaded!", e);
-    }
-
-    configValueList = new ArrayList<>(Arrays.asList(configValues));
-
-    for(ConfigValue configValue : configValueList)
-    {
-      set(configValue.getPath(), configValue.getDefaultValue());
     }
 
     ConfigList.add(this);
@@ -64,11 +66,13 @@ public abstract class ConfigFixture extends YamlConfiguration
   {
     for(ConfigValue configValue : configValueList)
     {
-      Object value = get(configValue);
-
-      if(value.getClass() != configValue.getType())
+      try
       {
-        CoreLogger.Warning("Couldn't load value for " + configValue.getPath() + " from Config " + configValue.getConfigName() + "!");
+        Object value = configValue.getType().cast(get(configValue));
+      }
+      catch (ClassCastException e)
+      {
+        CoreLogger.ReportException("Couldn't load value for " + configValue.getPath() + " from Config " + customConfigFile.getName() + "!", e);
       }
 
       configValue.setValue(get(configValue));
@@ -109,12 +113,14 @@ public abstract class ConfigFixture extends YamlConfiguration
     {
       ch = (char) configValue.getDefaultValue();
 
-      Globals.bukkitServer.getLogger().severe("ConfigValue for " + configValue.getPath() + " from config " + configValue.getConfigName() + " wasn't a char! RETURNING DEFAULT VALUE!");
+      Globals.bukkitServer.getLogger().severe("ConfigValue for " + configValue.getPath() + " from config " + getName() + " wasn't a char! RETURNING DEFAULT VALUE!");
 
       e.printStackTrace();
     }
     return (char) ch;
   }
+
+  abstract public String getConfigName();
 
   public Object get(ConfigValue configValue)
   {

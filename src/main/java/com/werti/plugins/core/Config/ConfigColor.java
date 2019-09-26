@@ -4,9 +4,14 @@ import org.bukkit.Color;
 
 public class ConfigColor extends ConfigFixture
 {
-  private static String name = "color";
+  public static String name = "color";
 
-  ConfigColor()
+  public String getConfigName()
+  {
+    return name;
+  }
+
+  public ConfigColor()
   {
     super(name, Values.values());
   }
@@ -51,11 +56,6 @@ public class ConfigColor extends ConfigFixture
     public void setValue(Object value)
     {
       this.value = value;
-    }
-
-    public String getConfigName()
-    {
-      return name;
     }
   }
 }
