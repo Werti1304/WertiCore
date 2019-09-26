@@ -6,19 +6,10 @@ public class ConfigColor extends ConfigFixture
 {
   private static String name = "color";
 
-  private Color infoColor = (Color) Values.InfoColor.defaultValue;
-
   ConfigColor()
   {
-    super(name);
+    super(name, Values.values());
   }
-
-  @Override
-  public void load()
-  {
-
-  }
-
 
   public enum Values implements ConfigValue
   {
@@ -26,6 +17,7 @@ public class ConfigColor extends ConfigFixture
 
     private String name;
     private Object defaultValue;
+    private Object value;
 
     Values(String name, Object defaultValue)
     {
@@ -33,14 +25,32 @@ public class ConfigColor extends ConfigFixture
       this.defaultValue = defaultValue;
     }
 
-    public String getName()
+    public String getPath()
     {
       return name;
+    }
+
+    @Override
+    public Class<?> getType()
+    {
+      return null;
     }
 
     public Object getDefaultValue()
     {
       return defaultValue;
+    }
+
+    @Override
+    public Object getValue()
+    {
+      return value;
+    }
+
+    @Override
+    public void setValue(Object value)
+    {
+      this.value = value;
     }
 
     public String getConfigName()

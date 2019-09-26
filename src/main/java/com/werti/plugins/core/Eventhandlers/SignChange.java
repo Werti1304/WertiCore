@@ -1,5 +1,6 @@
 package com.werti.plugins.core.Eventhandlers;
 
+import com.werti.plugins.core.Config.ConfigMiscellaneous;
 import com.werti.plugins.core.Globals;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -16,7 +17,7 @@ public class SignChange implements Listener
       String line = signChangeEvent.getLine(i);
       if (line != null && !line.equals(""))
       {
-        signChangeEvent.setLine(i, ChatColor.translateAlternateColorCodes(Globals.conMisc.getColorChar(), line));
+        signChangeEvent.setLine(i, ChatColor.translateAlternateColorCodes((Character)ConfigMiscellaneous.Values.ColorChar.getValue(), line));
       }
     }
   }

@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class ConfigFixture extends YamlConfiguration
 {
@@ -16,10 +17,11 @@ public abstract class ConfigFixture extends YamlConfiguration
 
   File customConfigFile;
   FileConfiguration fileConfiguration;
+  ArrayList<ConfigValue> configValueList;
 
   private String name;
 
-  public ConfigFixture(String name)
+  public ConfigFixture(String name, ConfigValue[] configValues)
   {
     this.name = name;
 
@@ -45,12 +47,35 @@ public abstract class ConfigFixture extends YamlConfiguration
       CoreLogger.ReportException("Custom Config " + this.name + " couldn't be loaded!", e);
     }
 
+    configValueList = new ArrayList<>(Arrays.asList(configValues));
+
+    for(ConfigValue configValue : configValueList)
+    {
+      set(configValue.getPath(), configValue.getDefaultValue());
+    }
+
     ConfigList.add(this);
   }
 
-  public abstract void load();
+  /**
+   * Updates all value out of a Config-File
+   */
+  public void load()
+  {
+    for(ConfigValue configValue : configValueList)
+    {
+      Object value = get(configValue);
 
-  void save()
+      if(value.getClass() != configValue.getType())
+      {
+        CoreLogger.Warning("Couldn't load value for " + configValue.getPath() + " from Config " + configValue.getConfigName() + "!");
+      }
+
+      configValue.setValue(get(configValue));
+    }
+  }
+
+  private void save()
   {
     try
     {
@@ -84,7 +109,7 @@ public abstract class ConfigFixture extends YamlConfiguration
     {
       ch = (char) configValue.getDefaultValue();
 
-      Globals.bukkitServer.getLogger().severe("ConfigValue for " + configValue.getName() + " from config " + configValue.getConfigName() + " wasn't a char! RETURNING DEFAULT VALUE!");
+      Globals.bukkitServer.getLogger().severe("ConfigValue for " + configValue.getPath() + " from config " + configValue.getConfigName() + " wasn't a char! RETURNING DEFAULT VALUE!");
 
       e.printStackTrace();
     }
@@ -93,7 +118,7 @@ public abstract class ConfigFixture extends YamlConfiguration
 
   public Object get(ConfigValue configValue)
   {
-    return get(configValue.getName());
+    return get(configValue.getPath());
   }
 
   public Object getDefaultValue(ConfigValue configValue)
@@ -103,6 +128,6 @@ public abstract class ConfigFixture extends YamlConfiguration
 
   public String getString(ConfigValue configValue)
   {
-    return configValue.getName();
+    return configValue.getPath();
   }
 }

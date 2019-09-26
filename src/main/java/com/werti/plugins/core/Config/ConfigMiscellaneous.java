@@ -4,51 +4,59 @@ public class ConfigMiscellaneous extends ConfigFixture
 {
   private static final String name = "miscellaneous";
 
-  private char ColorChar = '&';
-
   public ConfigMiscellaneous()
   {
-    super(name);
-
-    set(Values.ColorChar.getName(), Values.ColorChar.getDefaultValue());
-
-    save();
-  }
-
-  // Load all current values from configuration
-  public void load()
-  {
-    ColorChar = getChar(Values.ColorChar);
-  }
-
-  public char getColorChar()
-  {
-    return ColorChar;
+    super(name, Values.values());
   }
 
   public enum Values implements ConfigValue
   {
-    ColorChar("Color-Char", '&');
+    ColorChar("Color-Char", Character.class, '&');
 
     private String name;
+    private Class<?> type;
     private Object defaultValue;
+    private Object value;
 
-    Values(String name, Object defaultValue)
+    Values(String name, Class<?> type, Object defaultValue)
     {
       this.name = name;
+      this.type = type;
       this.defaultValue = defaultValue;
+      this.value = defaultValue;
     }
 
-    public String getName()
+    @Override
+    public String getPath()
     {
       return name;
     }
 
+    @Override
+    public Class<?> getType()
+    {
+      return type;
+    }
+
+    @Override
     public Object getDefaultValue()
     {
       return defaultValue;
     }
 
+    @Override
+    public Object getValue()
+    {
+      return value;
+    }
+
+    @Override
+    public void setValue(Object value)
+    {
+      this.value = value;
+    }
+
+    @Override
     public String getConfigName()
     {
       return name;

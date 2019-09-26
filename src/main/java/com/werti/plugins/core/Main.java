@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
 
 public class Main extends JavaPlugin
 {
@@ -44,7 +43,7 @@ public class Main extends JavaPlugin
     Globals.consoleHandler = new ConsoleHandler();
     Globals.logger.addHandler(Globals.consoleHandler);
 
-    CoreLogger.setLoggerLevel(Level.INFO);
+    //CoreLogger.setLoggerLevel(Level.INFO);
   }
 
   @Override
