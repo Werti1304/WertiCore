@@ -18,8 +18,6 @@ public class Globals
 
   static public Logger logger;
 
-  static public ConsoleHandler consoleHandler;
-
   static public ConfigMiscellaneous conMisc;
   static public ConfigColor conColor;
 }

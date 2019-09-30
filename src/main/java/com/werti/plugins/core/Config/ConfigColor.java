@@ -1,61 +1,34 @@
 package com.werti.plugins.core.Config;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
+
+import java.util.ArrayList;
 
 public class ConfigColor extends ConfigFixture
 {
   public static String name = "color";
 
-  public String getConfigName()
-  {
-    return name;
-  }
+  public ConfigValue<Color> InfoColor;
 
   public ConfigColor()
   {
-    super(name, Values.values());
+    super(name);
   }
 
-  public enum Values implements ConfigValue
+  @Override
+  ArrayList<ConfigValue> initializeValues()
   {
-    InfoColor("Info-Color", Color.AQUA);
+    ArrayList<ConfigValue> configValueList = new ArrayList<>();
 
-    private String name;
-    private Object defaultValue;
-    private Object value;
+    InfoColor = new ConfigValue<Color>("Info-Color", ConfigValue.Type.Color, Color.AQUA);
+    configValueList.add(InfoColor);
 
-    Values(String name, Object defaultValue)
-    {
-      this.name = name;
-      this.defaultValue = defaultValue;
-    }
+    return configValueList;
+  }
 
-    public String getPath()
-    {
-      return name;
-    }
-
-    @Override
-    public Class<?> getType()
-    {
-      return null;
-    }
-
-    public Object getDefaultValue()
-    {
-      return defaultValue;
-    }
-
-    @Override
-    public Object getValue()
-    {
-      return value;
-    }
-
-    @Override
-    public void setValue(Object value)
-    {
-      this.value = value;
-    }
+  public String getConfigName()
+  {
+    return name;
   }
 }

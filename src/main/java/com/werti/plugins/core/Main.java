@@ -44,7 +44,7 @@ public class Main extends JavaPlugin
     //Globals.consoleHandler = new ConsoleHandler();
     //Globals.logger.addHandler(Globals.consoleHandler);
 
-    CoreLogger.setLoggerLevel(Level.WARNING);
+    CoreLogger.setLoggerLevel(Level.INFO);
   }
 
   @Override
@@ -61,9 +61,9 @@ public class Main extends JavaPlugin
 
     Globals.conColor = new ConfigColor();
 
-    ConfigFixture.loadAll();
+    ConfigFixture.loadAllConfigs();
 
-    CoreLogger.info("Color-Char: " + Globals.conMisc.get(ConfigMiscellaneous.Values.ColorChar));
+    CoreLogger.info("Color-Char: " + Globals.conMisc.ColorChar.getValue());
 
     CoreLogger.info("Configs have been loaded!");
   }

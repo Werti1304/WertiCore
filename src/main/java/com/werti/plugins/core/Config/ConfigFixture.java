@@ -9,27 +9,25 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class ConfigFixture extends YamlConfiguration
 {
   private static ArrayList<ConfigFixture> ConfigList = new ArrayList<>();
 
-  File customConfigFile;
-  FileConfiguration fileConfiguration;
-  ArrayList<ConfigValue> configValueList;
+  private File customConfigFile;
+  private ArrayList<ConfigValue> configValueList;
 
   private String name;
 
-  public ConfigFixture(String name, ConfigValue[] configValues)
+  ConfigFixture(String name)
   {
     this.name = name;
+
+    configValueList = initializeValues();
 
     String fileName = this.name + ".yml";
 
     customConfigFile = new File(Globals.plugin.getDataFolder(), fileName);
-
-    configValueList = new ArrayList<>(Arrays.asList(configValues));
 
     for(ConfigValue configValue : configValueList)
     {
@@ -59,25 +57,7 @@ public abstract class ConfigFixture extends YamlConfiguration
     ConfigList.add(this);
   }
 
-  /**
-   * Updates all value out of a Config-File
-   */
-  public void load()
-  {
-    for(ConfigValue configValue : configValueList)
-    {
-      try
-      {
-        Object value = configValue.getType().cast(get(configValue));
-      }
-      catch (ClassCastException e)
-      {
-        CoreLogger.ReportException("Couldn't load value for " + configValue.getPath() + " from Config " + customConfigFile.getName() + "!", e);
-      }
-
-      configValue.setValue(get(configValue));
-    }
-  }
+  abstract ArrayList<ConfigValue> initializeValues();
 
   private void save()
   {
@@ -93,39 +73,33 @@ public abstract class ConfigFixture extends YamlConfiguration
   /**
    * Loads all config-variables from the config-files
    */
-  public static void loadAll()
+  public static void loadAllConfigs()
   {
     for(ConfigFixture configFixture : ConfigList)
     {
-      configFixture.load();
+      configFixture.loadAllValues();
     }
   }
 
-  public char getChar(ConfigValue configValue)
+  /**
+   * Updates all value out of a Config-File
+   */
+  private void loadAllValues()
   {
-    char ch;
-
-    try
+    for(ConfigValue configValue : configValueList)
     {
-      ch = (char) get(configValue);
+      try
+      {
+        configValue.load();
+      }
+      catch (ClassCastException | NullPointerException e)
+      {
+        CoreLogger.ReportException("Couldn't load value for " + configValue.getPath() + " from Config " + customConfigFile.getName() + "!", e);
+      }
     }
-    catch(ClassCastException e)
-    {
-      ch = (char) configValue.getDefaultValue();
-
-      Globals.bukkitServer.getLogger().severe("ConfigValue for " + configValue.getPath() + " from config " + getName() + " wasn't a char! RETURNING DEFAULT VALUE!");
-
-      e.printStackTrace();
-    }
-    return (char) ch;
   }
 
   abstract public String getConfigName();
-
-  public Object get(ConfigValue configValue)
-  {
-    return get(configValue.getPath());
-  }
 
   public Object getDefaultValue(ConfigValue configValue)
   {

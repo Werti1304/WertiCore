@@ -17,7 +17,7 @@ public class SignChange implements Listener
       String line = signChangeEvent.getLine(i);
       if (line != null && !line.equals(""))
       {
-        signChangeEvent.setLine(i, ChatColor.translateAlternateColorCodes((Character)ConfigMiscellaneous.Values.ColorChar.getValue(), line));
+        signChangeEvent.setLine(i, ChatColor.translateAlternateColorCodes(Globals.conMisc.ColorChar.getValue(), line));
       }
     }
   }

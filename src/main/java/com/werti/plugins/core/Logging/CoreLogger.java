@@ -32,7 +32,8 @@ public class CoreLogger
 
   public static void info(String msg)
   {
-    Globals.logger.info(msg);
+    String infoMessage = Globals.conColor.InfoColor.getValue() + msg;
+    Globals.logger.info(infoMessage);
   }
 
   public static void DebugLv1(String msg)

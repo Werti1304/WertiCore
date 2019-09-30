@@ -1,65 +1,32 @@
 package com.werti.plugins.core.Config;
 
+import java.util.ArrayList;
+
 public class ConfigMiscellaneous extends ConfigFixture
 {
   private static final String name = "miscellaneous";
 
+  public ConfigValue<Character> ColorChar;
+
   public ConfigMiscellaneous()
   {
-    super(name, Values.values());
+    super(name);
+  }
+
+  @Override
+  ArrayList<ConfigValue> initializeValues()
+  {
+    ArrayList<ConfigValue> configValueList = new ArrayList<>();
+
+    ColorChar = new ConfigValue<Character>("Color-Char", ConfigValue.Type.Character, '&');
+    configValueList.add(ColorChar);
+
+    return configValueList;
   }
 
   @Override
   public String getConfigName()
   {
     return name;
-  }
-
-  public enum Values implements ConfigValue
-  {
-    ColorChar("Color-Char", Character.class, '&');
-
-    private String name;
-    private Class<?> type;
-    private Object defaultValue;
-    private Object value;
-
-    Values(String name, Class<?> type, Object defaultValue)
-    {
-      this.name = name;
-      this.type = type;
-      this.defaultValue = defaultValue;
-      this.value = defaultValue;
-    }
-
-    @Override
-    public String getPath()
-    {
-      return name;
-    }
-
-    @Override
-    public Class<?> getType()
-    {
-      return type;
-    }
-
-    @Override
-    public Object getDefaultValue()
-    {
-      return defaultValue;
-    }
-
-    @Override
-    public Object getValue()
-    {
-      return value;
-    }
-
-    @Override
-    public void setValue(Object value)
-    {
-      this.value = value;
-    }
   }
 }
